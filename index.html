@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TODO LIST</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+  </head>
+  <body>
+    <h1 class="text-center">TODO LIST</h1>
+<div class="container" id="nav1">
+    <nav class="navbar navbar-expand-lg bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Navbar</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Dropdown
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="#">Action</a></li>
+                  <li><a class="dropdown-item" href="#">Another action</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link disabled">Disabled</a>
+              </li>
+            </ul>
+            <form class="d-flex" role="search">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+          </div>
+        </div>
+      </nav>    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+
+</div>
+
+
+
+<div class="container my-4" id="form1" >
+    
+        <div class="mb-3">
+          <label for="task" class="form-label"><b>Enter Task</b></label>
+          <input type="text" class="form-control" id="inputtask" >
+          <div  class="form-text">Your task is a part of your work</div>
+        </div>
+
+        <div class="mb-3">
+            <label for="floatingTextarea2"><b>Enter Description</b></label>
+                <textarea class="form-control" placeholder="Description" id="inputDescription" style="height: 100px"></textarea>
+        </div>
+        
+        
+        <button  class="btn btn-primary" id="add">Enter Task</button>
+        <button  class="btn btn-primary" id="cleared" onclick="clearedStorage()">Clear list</button>
+      
+</div>
+
+
+<div class="container" id="table1">
+    <h1>Task List</h1>
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Sr no</th>
+            <th scope="col">Task</th>
+            <th scope="col">Description</th>
+            <!-- <th scope="col">Handle</th> -->
+            <th scope="col"> Action</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody">
+          <tr>
+            <th scope="row" id="">1</th>
+            <td>coding practice</td>
+            <td>Have to parctice coding because i want to be programmer</td>
+            <td><button class="btn btn-primary">Delete</button></td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <!-- <td>Jacob</td>
+            <td>Thornton</td>
+            <td>@fat</td> -->
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <!-- <td colspan="2">Larry the Bird</td>
+            <td>@twitter</td> -->
+          </tr>
+        </tbody>
+      </table>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+
+
+    <script>      
+      function getAndUpdate(){
+        console.log("Updating task...")
+            disc = document.getElementById('inputDescription').value;
+            tit = document.getElementById('inputtask').value;
+            
+            
+            if (localStorage.getItem('itemsJson')==null){
+                itemJsonArray = [];
+                itemJsonArray.push([tit , disc]);
+                localStorage.setItem('itemsJson', JSON.stringify(itemJsonArray))
+            }
+            else{
+                itemJsonArraystr = localStorage.getItem('itemsJson')
+                itemJsonArray = JSON.parse(itemJsonArraystr) 
+                
+                itemJsonArray.push([tit , disc]);
+                localStorage.setItem('itemsJson', JSON.stringify(itemJsonArray))
+            }
+        update();
+
+      }
+
+
+      //Populating the table
+      function update(){
+        console.log("Update funciton called...")
+                if (localStorage.getItem('itemsJson')==null){
+                    itemJsonArray = []; 
+                    localStorage.setItem('itemsJson', JSON.stringify(itemJsonArray))
+                   } 
+                else{
+                    itemJsonArrayStr = localStorage.getItem('itemsJson')
+                    itemJsonArray = JSON.parse(itemJsonArrayStr); 
+                   }
+                  let tableBody1 = document.getElementById('tableBody');
+                  let str = "";
+                  itemJsonArray.forEach((element,index)=> {
+                  str += `
+                  <tr>
+                  <th scope="row" >${index +  1}</th>
+                  <td>${element [0]}</td>
+                  <td>${element [1]}</td>
+                  <td><button class="btn btn-primary"  onclick = "deleted(${index})">Delete</button></td>
+                  </tr> `;
+                
+                });
+                tableBody1.innerHTML = str;
+      }
+
+        add1 = document.getElementById("add");
+        add1.addEventListener("click", getAndUpdate);
+        update();   // update function get called when document is loaded
+
+        function deleted(indexItem){
+          console.log("Deleting item..." , indexItem);
+          itemJsonArraystr = localStorage.getItem('itemsJson');
+          itemJsonArray = JSON.parse(itemJsonArraystr);
+          itemJsonArray.splice(indexItem , 1);
+          localStorage.setItem('itemsJson' , JSON.stringify(itemJsonArray));
+          update();
+
+
+        }
+        function clearedStorage(){
+          if(confirm("Do you really wants to clear the list ")){
+            console.log("Clearing the storage")
+            localStorage.clear();
+            update();
+
+
+            
+          }
+
+        }
+
+
+
+
+            //Till Here we are able to add the input value to the local storage
+
+
+            //Now displaying the value(addinf value to the table) inside the table
+
+
+
+
+
+
+    </script>
+
+
+  </body>
+</html>
